@@ -29,9 +29,12 @@ test("includes provider settings, history, charts, and an AI route", async () =>
   assert.match(workspace, /function SettingsView/);
   assert.match(workspace, /function HistoryView/);
   assert.match(workspace, /onClick=\{\(\) => void ask\(p\)\}/);
+  assert.match(workspace, /grid-cols-\[72px_minmax\(0,1fr\)\]/);
   assert.match(store, /OpenRouter/);
   assert.match(store, /Anthropic/);
   assert.match(store, /Sankey/);
+  assert.match(store, /aiOpen: false/);
+  assert.match(store, /setActiveView: \(activeView\) => set\(\{ activeView, aiOpen: false \}\)/);
   assert.match(route, /chat\/completions/);
   assert.match(route, /anthropic-version/);
 });

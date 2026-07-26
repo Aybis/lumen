@@ -34,6 +34,9 @@ button { cursor: pointer; }
 
 .card-shadow { box-shadow: 0 1px 0 rgba(16,26,45,.04), 0 10px 36px rgba(16,26,45,.045); }
 .focus-ring:focus-visible { outline: 3px solid rgba(39,100,255,.25); outline-offset: 2px; }
+.side-rail { position: sticky; top: 64px; align-self: start; }
+.ai-panel[data-open="false"] { pointer-events: none; transform: translateX(105%); visibility: hidden; }
+.ai-panel[data-open="true"] { transform: translateX(0); visibility: visible; }
 
 @keyframes thinking { 0%, 80%, 100% { opacity: .25; transform: translateY(0) } 40% { opacity: 1; transform: translateY(-2px) } }
 .thinking-dot { animation: thinking 1.2s infinite ease-in-out; }
@@ -42,8 +45,7 @@ button { cursor: pointer; }
 
 @media (max-width: 1180px) {
   .workspace-grid { grid-template-columns: 72px minmax(0, 1fr) !important; }
-  .ai-panel { position: fixed; right: 16px; bottom: 16px; top: 76px; width: min(390px, calc(100vw - 32px)); z-index: 50; box-shadow: 0 24px 80px rgba(16,26,45,.22); }
-  .ai-panel[data-open="false"] { display: none; }
+  .ai-panel { right: 16px; bottom: 16px; top: 76px; width: min(390px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 24px 80px rgba(16,26,45,.22); overflow: hidden; }
 }
 
 @media (max-width: 720px) {

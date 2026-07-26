@@ -69,7 +69,7 @@ export const useWorkspace = create<WorkspaceState>()(persist((set, get) => ({
   rows: sampleData,
   fileName: "Northstar_FY25.xlsx",
   activeView: "overview",
-  aiOpen: true,
+  aiOpen: false,
   messages: initialMessages,
   providers: defaultProviders,
   defaultProviderId: "openrouter",
@@ -83,6 +83,7 @@ export const useWorkspace = create<WorkspaceState>()(persist((set, get) => ({
       fileName,
       history,
       activeView: "overview",
+      aiOpen: false,
       messages: [{ id: crypto.randomUUID(), role: "assistant", content: `Analysis complete. I profiled ${rows.length.toLocaleString()} records from ${fileName}. Ask for an executive summary, anomaly scan, or the best visual story.`, createdAt: new Date().toISOString(), model: "Local analyst" }],
     };
   }),
@@ -91,7 +92,7 @@ export const useWorkspace = create<WorkspaceState>()(persist((set, get) => ({
     if (item) get().setDataset(item.rows, item.fileName);
   },
   deleteHistory: (id) => set((state) => ({ history: state.history.filter((entry) => entry.id !== id) })),
-  setActiveView: (activeView) => set({ activeView }),
+  setActiveView: (activeView) => set({ activeView, aiOpen: false }),
   setAiOpen: (aiOpen) => set({ aiOpen }),
   addMessage: (message) => set((state) => ({ messages: [...state.messages, message] })),
   clearMessages: () => set({ messages: initialMessages.map((message) => ({ ...message, id: crypto.randomUUID(), createdAt: new Date().toISOString() })) }),
