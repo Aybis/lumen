@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #101a2d;
+  --muted: #657087;
+  --paper: #f4f1ea;
+  --card: #fffefa;
+  --line: #e0ddd4;
+  --blue: #2764ff;
+  --lime: #b8ed3a;
+  --coral: #ff6a4d;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+::selection { color: var(--ink); background: var(--lime); }
+
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+.hairline-grid {
+  background-image: linear-gradient(to right, rgba(16,26,45,.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(16,26,45,.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.card-shadow { box-shadow: 0 1px 0 rgba(16,26,45,.04), 0 10px 36px rgba(16,26,45,.045); }
+.focus-ring:focus-visible { outline: 3px solid rgba(39,100,255,.25); outline-offset: 2px; }
+
+@keyframes thinking { 0%, 80%, 100% { opacity: .25; transform: translateY(0) } 40% { opacity: 1; transform: translateY(-2px) } }
+.thinking-dot { animation: thinking 1.2s infinite ease-in-out; }
+.thinking-dot:nth-child(2) { animation-delay: .15s; }
+.thinking-dot:nth-child(3) { animation-delay: .3s; }
+
+@media (max-width: 1180px) {
+  .workspace-grid { grid-template-columns: 72px minmax(0, 1fr) !important; }
+  .ai-panel { position: fixed; right: 16px; bottom: 16px; top: 76px; width: min(390px, calc(100vw - 32px)); z-index: 50; box-shadow: 0 24px 80px rgba(16,26,45,.22); }
+  .ai-panel[data-open="false"] { display: none; }
+}
+
+@media (max-width: 720px) {
+  .workspace-grid { grid-template-columns: 1fr !important; }
+  .side-rail { display: none !important; }
+  .main-pad { padding: 18px !important; }
+  .metric-grid { grid-template-columns: 1fr 1fr !important; }
+  .chart-grid { grid-template-columns: 1fr !important; }
+}
