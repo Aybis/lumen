@@ -5,7 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { gsap } from "gsap";
 import Papa from "papaparse";
-import readXlsxFile from "read-excel-file/browser";
+import { readSheet } from "read-excel-file/browser";
 import {
   AlertTriangle, ArrowDownRight, ArrowUpRight, BarChart3, Bell, Bot, Check,
   ChevronDown, ChevronRight, CircleHelp, Clock3, Copy, Database, Download, Eye, EyeOff, FileJson, FileSpreadsheet,
@@ -80,12 +80,12 @@ function UploadDialog() {
       } else if (extension === "json") {
         rows = normalizeRows(JSON.parse(await file.text()));
       } else if (extension === "xlsx") {
-        const cells = await readXlsxFile(file);
+        const cells = await readSheet(file);
         const headers = (cells[0] || []).map((cell, index) => String(cell || `Column ${index + 1}`).slice(0, 80));
         rows = normalizeRows(cells.slice(1).map((values) => Object.fromEntries(headers.map((header, index) => [header, values[index] == null ? null : values[index] instanceof Date ? values[index].toISOString() : values[index]]))));
       } else {
         const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
-        const doc = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()), disableWorker: true }).promise;
+        const doc = await pdfjs.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
         const extracted: DataRow[] = [];
         for (let pageNumber = 1; pageNumber <= Math.min(doc.numPages, 50); pageNumber++) {
           const page = await doc.getPage(pageNumber);

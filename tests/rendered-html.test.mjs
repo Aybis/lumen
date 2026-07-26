@@ -47,3 +47,15 @@ test("includes provider settings, history, charts, and an AI route", async () =>
   assert.match(route, /chat\/completions/);
   assert.match(route, /anthropic-version/);
 });
+
+test("provides a standard Next.js build for Vercel", async () => {
+  const [packageJson, vercelConfig, nextConfig] = await Promise.all([
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../vercel.json", import.meta.url), "utf8"),
+    readFile(new URL("../next.config.ts", import.meta.url), "utf8"),
+  ]);
+  assert.match(packageJson, /"build:vercel": "VERCEL=1 next build"/);
+  assert.match(vercelConfig, /"framework": "nextjs"/);
+  assert.match(vercelConfig, /"buildCommand": "npm run build:vercel"/);
+  assert.match(nextConfig, /tsconfig\.vercel\.json/);
+});
