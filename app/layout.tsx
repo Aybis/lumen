@@ -14,9 +14,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: base,
     title: "Lumen — AI Decision Intelligence",
-    description: "Turn raw data into board-ready insight, risks, and action plans.",
+    description: "See the decision before the noise. Turn raw data into board-ready insight, risks, and action plans.",
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-    openGraph: { title: "Lumen — AI Decision Intelligence", description: "From raw data to the next best action.", images: [{ url: new URL("/og.png", base).toString(), width: 1732, height: 909, alt: "Lumen decision intelligence" }] },
+    openGraph: { title: "Lumen — AI Decision Intelligence", description: "See the decision before the noise.", images: [{ url: new URL("/og.png", base).toString(), width: 1732, height: 909, alt: "Lumen decision intelligence" }] },
     twitter: { card: "summary_large_image", title: "Lumen — AI Decision Intelligence", description: "From raw data to the next best action.", images: [new URL("/og.png", base).toString()] },
   };
 }

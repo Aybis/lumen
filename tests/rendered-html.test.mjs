@@ -9,15 +9,24 @@ async function render(path = "/") {
   return worker.fetch(new Request(`http://localhost${path}`, { headers: { accept: "text/html" } }), { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } }, { waitUntil() {}, passThroughOnException() {} });
 }
 
-test("renders the Lumen workspace", async () => {
+test("renders the cinematic Lumen landing page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<title>Lumen — AI Decision Intelligence<\/title>/i);
-  assert.match(html, /Executive pulse/);
-  assert.match(html, /Lumen Analyst/);
+  assert.match(html, /See the decision/);
+  assert.match(html, /Three moves from raw to ready/);
+  assert.match(html, /Simple pricing/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
+});
+
+test("renders dedicated login and registration pages", async () => {
+  const [login, register] = await Promise.all([render("/login"), render("/register")]);
+  assert.equal(login.status, 200);
+  assert.equal(register.status, 200);
+  assert.match(await login.text(), /Sign in to Lumen/);
+  assert.match(await register.text(), /Create your workspace/);
 });
 
 test("includes provider settings, history, charts, and an AI route", async () => {

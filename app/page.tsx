@@ -1,5 +1,9 @@
-import { AnalyticsWorkspace } from "@/components/analytics-workspace";
+import { getChatGPTUser } from "@/app/chatgpt-auth";
+import { MarketingSite } from "@/components/marketing-site";
 
-export default function Home() {
-  return <AnalyticsWorkspace />;
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const user = await getChatGPTUser();
+  return <MarketingSite signedIn={Boolean(user)} />;
 }
