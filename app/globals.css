@@ -49,7 +49,15 @@ button { cursor: pointer; }
 @media (max-width: 720px) {
   .workspace-grid { grid-template-columns: 1fr !important; }
   .side-rail { display: none !important; }
-  .main-pad { padding: 18px !important; }
+  .main-pad { padding: 18px 18px 92px !important; }
   .metric-grid { grid-template-columns: 1fr 1fr !important; }
   .chart-grid { grid-template-columns: 1fr !important; }
+  .mobile-nav { display: flex !important; }
+  .settings-shell > div { grid-template-columns: 1fr !important; }
+  .settings-shell aside { border-right: 0 !important; border-bottom: 1px solid var(--line); }
+  .ai-panel { bottom: 76px; }
+}
+
+@media (max-width: 480px) {
+  .metric-grid { grid-template-columns: 1fr !important; }
 }
