@@ -4,6 +4,6 @@ import { AnalyticsWorkspace } from "@/components/analytics-workspace";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  await requireChatGPTUser("/dashboard");
-  return <AnalyticsWorkspace />;
+  const user = await requireChatGPTUser("/dashboard");
+  return <AnalyticsWorkspace ownerId={user.email.toLowerCase()} />;
 }
